@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="JavaClass.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="JavaField.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="JavaString.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="JNIKit.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="JavaClass.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="JavaField.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="JavaString.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="JNIError.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="JNIKit.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{d9a9d354-e945-4bf4-9c13-cc69c3c8087e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{63c7c86f-ed89-4d00-b482-22f82b53cb21}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
