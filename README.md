@@ -17,7 +17,7 @@ JavaClass *myClass = kit.getClass("my/package/MyClass"); // Load my.package.MyCl
 Easy, eh? What about altering a static field:
 
 ```c++
-JavaField *myField = kit.getStaticField("my/package/MyClass", "myField", "Ljava.lang.String;"); // Resolve..
+JavaField *myField = kit.getStaticField("my/package/MyClass", "myField", "Ljava/lang/String;"); // Resolve..
 myField->set(nullptr); // Set the field to null.. or whatever you wish to set it to.
 ```
 
