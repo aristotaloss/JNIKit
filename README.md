@@ -22,3 +22,17 @@ myField->set(nullptr); // Set the field to null.. or whatever you wish to set it
 ```
 
 A breeze. All the ugly `jclass` and `jobject` and the likes are done under the hood. You get to work with the pretty classes.
+
+You can also create new classes from bytecode. An example being:
+```c++
+JavaClass *created = kit.defineClass("my/package/MyClass", "path/to/folder/containing/MyClass.class");
+```
+.. and then you can, for example create a new instance:
+```c++
+auto instance = created->constructNew();
+```
+.. or maybe invoke a static method:
+```c++
+auto method = created->getStaticMethod("testFunction", "(Ljava/lang/String;)V");
+method->invoke(kit.createString("hello from c++")->jniRef());
+```
