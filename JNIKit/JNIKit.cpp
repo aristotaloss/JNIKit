@@ -63,6 +63,41 @@ JavaString *JNIKit::createString(string str) {
 	return new JavaString(env->NewStringUTF(str.c_str()));
 }
 
+JavaClass *JNIKit::defineClass(string name, string filename, jobject classLoader) {
+	// Load the file data
+	std::ifstream file(filename, std::ios::binary);
+	file.seekg(0, std::ios::end);
+	std::streamsize size = file.tellg();
+	file.seekg(0, std::ios::beg);
+
+	std::vector<char> buffer(size);
+	if (!file.read(buffer.data(), size)) {
+		throw JNIError("could not read file contents into buffer");
+	}
+
+	// Construct new class from data buffer
+	return defineClass(name, buffer, classLoader);
+}
+
+JavaClass *JNIKit::defineClass(string name, vector<char>& data, jobject classLoader) {
+	jobject loader = classLoader;
+
+	// Use system class loader if we don't pass any
+	if (!loader) {
+		auto classLoaderClass = getClass("java/lang/ClassLoader");
+		jmethodID getSystemClassLoader = env->GetStaticMethodID(classLoaderClass->jniRef(), "getSystemClassLoader", "()Ljava/lang/ClassLoader;");
+		jobject instance = env->CallStaticObjectMethod(classLoaderClass->jniRef(), getSystemClassLoader);
+	}
+
+	jclass defined = env->DefineClass(name.c_str(), loader, (jbyte *) data.data(), data.size());
+	if (!defined) {
+		throw new JNIError("could not define class");
+		// TODO find a way to acquire what exactly went wrong under the hood..
+	}
+
+	return new JavaClass(env, defined);
+}
+
 
 vector<JavaVM *> JNIKit::listJvms() {
 	vector<JavaVM *> vms;

@@ -9,3 +9,7 @@ JavaString::JavaString(jstring ref) {
 
 JavaString::~JavaString() {
 }
+
+jstring JavaString::jniRef() {
+	return ref;
+}

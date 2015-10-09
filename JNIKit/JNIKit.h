@@ -8,6 +8,7 @@
 #include "JavaField.h"
 #include "JavaString.h"
 #include "JNIError.h"
+#include <fstream>
 
 #pragma comment(lib, "jvm.lib")
 
@@ -30,6 +31,8 @@ public:
 	bool detach();
 
 	JavaString *createString(string str);
+	JavaClass *defineClass(string name, string filename, jobject classLoader = nullptr);
+	JavaClass *defineClass(string name, vector<char> &data, jobject classLoader = nullptr);
 
 	static vector<JavaVM*> listJvms();
 	static JNIKit attach(JavaVM *vm);

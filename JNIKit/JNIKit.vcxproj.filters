@@ -16,6 +16,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="JavaMethod.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JavaClass.h">
@@ -33,6 +34,7 @@
     <ClInclude Include="JNIKit.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="JavaMethod.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

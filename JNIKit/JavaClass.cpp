@@ -14,6 +14,27 @@ jclass JavaClass::jniRef() {
 }
 
 jobject JavaClass::constructNew() {
-	
-	return jobject();
+	jmethodID constructor = env->GetMethodID(ref, "<init>", "()V");
+	return env->NewObject(ref, getMethod("<init>")->jniRef());
+}
+
+JavaMethod *JavaClass::getMethod(string name, string desc) {
+	jmethodID method = env->GetMethodID(ref, name.c_str(), desc.c_str());
+
+	// Return a nullpointer if the resolving failed.
+	if (!method)
+		return nullptr;
+
+	return new JavaMethod(env, method, ref, false);
+}
+
+
+JavaMethod *JavaClass::getStaticMethod(string name, string desc) {
+	jmethodID method = env->GetStaticMethodID(ref, name.c_str(), desc.c_str());
+
+	// Return a nullpointer if the resolving failed.
+	if (!method)
+		return nullptr;
+
+	return new JavaMethod(env, method, ref, true);
 }
