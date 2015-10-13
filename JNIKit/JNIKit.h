@@ -30,6 +30,7 @@ public:
 	JavaMethod *getMethod(JavaClass *declaredIn, string methodName, string desc);
 	JavaMethod *getMethod(string declaredIn, string methodName, string desc);
 	JavaVM *getVm();
+	JNIEnv *getEnv();
 	bool detach();
 
 	JavaString *createString(string str);

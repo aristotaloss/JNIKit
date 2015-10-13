@@ -84,6 +84,10 @@ JavaVM *JNIKit::getVm() {
 	return vm;
 }
 
+JNIEnv *JNIKit::getEnv() {
+	return env;
+}
+
 bool JNIKit::detach() {
 	if (env) {
 		auto jvm = getVm();
@@ -95,7 +99,7 @@ bool JNIKit::detach() {
 }
 
 JavaString *JNIKit::createString(string str) {
-	return new JavaString(env->NewStringUTF(str.c_str()));
+	return new JavaString(this, env->NewStringUTF(str.c_str()));
 }
 
 JavaClass *JNIKit::defineClass(string name, string filename, jobject classLoader) {
