@@ -27,6 +27,8 @@ public:
 	JavaClass *getClass(string name);
 	JavaField *getStaticField(JavaClass *declaredIn, string fieldName, string desc);
 	JavaField *getStaticField(string declaredIn, string fieldName, string desc);
+	JavaMethod *getStaticMethod(JavaClass *declaredIn, string methodName, string desc);
+	JavaMethod *getStaticMethod(string declaredIn, string methodName, string desc);
 	JavaVM *getVm();
 	bool detach();
 

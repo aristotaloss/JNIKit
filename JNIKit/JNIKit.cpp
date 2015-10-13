@@ -40,6 +40,27 @@ JavaField *JNIKit::getStaticField(string declaredIn, string fieldName, string de
 	return getStaticField(declaringClass, fieldName, desc);
 }
 
+JavaMethod *JNIKit::getStaticMethod(JavaClass *declaredIn, string methodName, string desc) {
+	jmethodID resolved = env->GetStaticMethodID(declaredIn->jniRef(), methodName.c_str(), desc.c_str());
+
+	// Did we manage to resolve it?
+	if (resolved) {
+		return new JavaMethod(env, resolved, declaredIn->jniRef(), true);
+	}
+
+	return nullptr;
+}
+
+JavaMethod *JNIKit::getStaticMethod(string declaredIn, string methodName, string desc) {
+	// Resolve class and resolve method in succession
+	JavaClass *declaringClass = getClass(declaredIn);
+
+	if (!declaringClass)
+		throw JNIError("could not resolve class from string");
+
+	return getStaticMethod(declaringClass, methodName, desc);
+}
+
 JavaVM *JNIKit::getVm() {
 	JavaVM *vm;
 

@@ -16,11 +16,11 @@ jmethodID JavaMethod::jniRef() {
 	return ref;
 }
 
-jobject JavaMethod::invoke(...) {
+jobject JavaMethod::invoke(int x, ...) {
 	va_list varargs;
-	va_start(varargs, this);
+	va_start(varargs, x);
 	if (staticMethod) {
-		env->CallStaticVoidMethodV(definedIn, ref, varargs);
+		return env->CallStaticObjectMethodV(definedIn, ref, varargs);
 	} else {
 		//env->CallVoidMethodV();
 	}
