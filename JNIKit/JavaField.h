@@ -9,6 +9,8 @@ public:
 	~JavaField();
 	bool set(jobject value);
 	bool set(jobject instance, jobject value);
+	jobject get();
+	jobject get(jobject instance);
 	bool isStatic();
 
 private:

@@ -29,6 +29,18 @@ bool JavaField::set(jobject instance, jobject value) {
 	return false;
 }
 
+jobject JavaField::get(jobject instance) {
+	if (staticField) {
+		return env->GetStaticObjectField(defined, ref);
+	} else {
+		return env->GetObjectField(instance, ref);
+	}
+}
+
+jobject JavaField::get() {
+	return get(nullptr);
+}
+
 bool JavaField::isStatic() {
 	return staticField;
 }

@@ -8,7 +8,7 @@ public:
 	JavaMethod(JNIEnv *env, jmethodID ref, jclass definedIn, bool staticMethod);
 	~JavaMethod();
 	jmethodID jniRef();
-	jobject invoke(int, ...);
+	jobject invoke(jobject instance, ...);
 	bool isStatic();
 private:
 	JNIEnv *env;
