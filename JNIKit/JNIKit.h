@@ -19,6 +19,7 @@ class JavaClass;
 class JavaField;
 class JavaString;
 
+
 class JNIKit {
 
 public:
@@ -34,6 +35,7 @@ public:
 	bool detach();
 
 	JavaString *createString(string str);
+	string unwrapString(jstring str);
 	JavaClass *defineClass(string name, string filename, jobject classLoader = nullptr);
 	JavaClass *defineClass(string name, vector<char> &data, jobject classLoader = nullptr);
 

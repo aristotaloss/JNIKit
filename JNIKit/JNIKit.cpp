@@ -102,6 +102,10 @@ JavaString *JNIKit::createString(string str) {
 	return new JavaString(this, env->NewStringUTF(str.c_str()));
 }
 
+string JNIKit::unwrapString(jstring str) {
+	return string(env->GetStringUTFChars(str, jboolean(false)));
+}
+
 JavaClass *JNIKit::defineClass(string name, string filename, jobject classLoader) {
 	// Load the file data
 	std::ifstream file(filename, std::ios::binary);
