@@ -9,6 +9,7 @@ public:
 	~JavaMethod();
 	jmethodID jniRef();
 	jobject invoke(int, ...);
+	bool isStatic();
 private:
 	JNIEnv *env;
 	jclass definedIn;

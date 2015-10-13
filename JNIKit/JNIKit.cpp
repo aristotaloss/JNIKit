@@ -19,7 +19,7 @@ JavaClass *JNIKit::getClass(string name) {
 	return new JavaClass(env, resolved);
 }
 
-JavaField *JNIKit::getStaticField(JavaClass *declaredIn, string fieldName, string desc) {
+JavaField *JNIKit::getField(JavaClass *declaredIn, string fieldName, string desc) {
 	jfieldID resolved = env->GetStaticFieldID(declaredIn->jniRef(), fieldName.c_str(), desc.c_str());
 
 	// Did we manage to resolve it?
@@ -27,20 +27,26 @@ JavaField *JNIKit::getStaticField(JavaClass *declaredIn, string fieldName, strin
 		return new JavaField(env, declaredIn->jniRef(), resolved, true);
 	}
 
+	// Attempt to get a nonstatic field variant
+	resolved = env->GetFieldID(declaredIn->jniRef(), fieldName.c_str(), desc.c_str());
+	if (resolved) {
+		return new JavaField(env, declaredIn->jniRef(), resolved, false);
+	}
+
 	return nullptr;
 }
 
-JavaField *JNIKit::getStaticField(string declaredIn, string fieldName, string desc) {
+JavaField *JNIKit::getField(string declaredIn, string fieldName, string desc) {
 	// Resolve class and resolve field in succession
 	JavaClass *declaringClass = getClass(declaredIn);
 
 	if (!declaringClass)
 		throw JNIError("could not resolve class from string");
 
-	return getStaticField(declaringClass, fieldName, desc);
+	return getField(declaringClass, fieldName, desc);
 }
 
-JavaMethod *JNIKit::getStaticMethod(JavaClass *declaredIn, string methodName, string desc) {
+JavaMethod *JNIKit::getMethod(JavaClass *declaredIn, string methodName, string desc) {
 	jmethodID resolved = env->GetStaticMethodID(declaredIn->jniRef(), methodName.c_str(), desc.c_str());
 
 	// Did we manage to resolve it?
@@ -48,17 +54,25 @@ JavaMethod *JNIKit::getStaticMethod(JavaClass *declaredIn, string methodName, st
 		return new JavaMethod(env, resolved, declaredIn->jniRef(), true);
 	}
 
+	// Attempt to resolve the nonstatic variant
+	resolved = env->GetMethodID(declaredIn->jniRef(), methodName.c_str(), desc.c_str());
+
+	// Did we manage to resolve it?
+	if (resolved) {
+		return new JavaMethod(env, resolved, declaredIn->jniRef(), false);
+	}
+
 	return nullptr;
 }
 
-JavaMethod *JNIKit::getStaticMethod(string declaredIn, string methodName, string desc) {
+JavaMethod *JNIKit::getMethod(string declaredIn, string methodName, string desc) {
 	// Resolve class and resolve method in succession
 	JavaClass *declaringClass = getClass(declaredIn);
 
 	if (!declaringClass)
 		throw JNIError("could not resolve class from string");
 
-	return getStaticMethod(declaringClass, methodName, desc);
+	return getMethod(declaringClass, methodName, desc);
 }
 
 JavaVM *JNIKit::getVm() {

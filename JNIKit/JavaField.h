@@ -9,6 +9,7 @@ public:
 	~JavaField();
 	bool set(jobject value);
 	bool set(jobject instance, jobject value);
+	bool isStatic();
 
 private:
 	JNIEnv *env;

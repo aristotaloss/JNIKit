@@ -25,10 +25,10 @@ public:
 	JNIKit(JNIEnv *env);
 	~JNIKit();
 	JavaClass *getClass(string name);
-	JavaField *getStaticField(JavaClass *declaredIn, string fieldName, string desc);
-	JavaField *getStaticField(string declaredIn, string fieldName, string desc);
-	JavaMethod *getStaticMethod(JavaClass *declaredIn, string methodName, string desc);
-	JavaMethod *getStaticMethod(string declaredIn, string methodName, string desc);
+	JavaField *getField(JavaClass *declaredIn, string fieldName, string desc);
+	JavaField *getField(string declaredIn, string fieldName, string desc);
+	JavaMethod *getMethod(JavaClass *declaredIn, string methodName, string desc);
+	JavaMethod *getMethod(string declaredIn, string methodName, string desc);
 	JavaVM *getVm();
 	bool detach();
 

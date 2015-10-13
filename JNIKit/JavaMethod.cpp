@@ -27,3 +27,7 @@ jobject JavaMethod::invoke(int x, ...) {
 	va_end(varargs);
 	return nullptr;
 }
+
+bool JavaMethod::isStatic() {
+	return staticMethod;
+}

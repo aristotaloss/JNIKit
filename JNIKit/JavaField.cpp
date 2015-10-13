@@ -28,3 +28,7 @@ bool JavaField::set(jobject instance, jobject value) {
 
 	return false;
 }
+
+bool JavaField::isStatic() {
+	return staticField;
+}
